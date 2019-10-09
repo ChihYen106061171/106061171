@@ -3,17 +3,19 @@
 using namespace std;
 
 //drop
-void drop(bool**myarr,int posi,string a,int m)
+void drop(bool**myarr,int posi,int shapeindex,int m)
 {
+
     int step = 0;
     int i,j;
 
-    if((a=="T1")||(a=="T3")||(a=="L2")||(a=="L4")||(a=="J2")
-       ||(a=="J4")||(a=="S1")||(a=="Z1")){//3
+    if((shapeindex==1)||(shapeindex==3)||(shapeindex==6)||(shapeindex==8)||(shapeindex==10)
+       ||(shapeindex==12)||(shapeindex==13)||(shapeindex==15)){//3
     int b[4] = {-1,-1,-1,-1};//record last block
-    for(j=posi;j<=posi+2;j++){
-         for(i=4;i>=1;i++){
-            if(myarr[i][posi]==1) {
+
+    for(j=1;j<=3;j++){
+         for(i=4;i>=1;i--){
+            if(myarr[i][posi+j-1]==1) {
                     b[j] = i; // rewrite
                     break;//find last bottom 1
             }
@@ -29,9 +31,10 @@ void drop(bool**myarr,int posi,string a,int m)
         b[3]++;
     } //<=?
 
-    for(i=1;i<5;i++){//bring all to dest
+
+    for(i=1;i<5;i++){    //bring all to dest
         for(j=0;j<3;j++){
-            if(myarr[i][posi+j]==1){
+            if(myarr[i][posi+j]==1){//move
                 myarr[i+step][posi+j] = 1;
                 myarr[i][posi+j]=0;
             }
@@ -43,12 +46,13 @@ void drop(bool**myarr,int posi,string a,int m)
     }//first if for 3
 
     //case 2 from here
-    else if((a=="T2")||(a=="T4")||(a=="L1")||(a=="L3")||(a=="J1")||(a=="J3")
-       ||(a=="S2")||(a=="Z2")){//2
+    else if((shapeindex==2)||(shapeindex==4)||(shapeindex==5)||(shapeindex==7)||
+            (shapeindex==9)||(shapeindex==11)||(shapeindex==14)||(shapeindex==16)||(shapeindex==19)){//2
     int b[3] = {-1,-1,-1};//record last block
-    for(j=posi;j<=posi+1;j++){
-         for(i=4;i>=1;i++){
-            if(myarr[i][posi]==1) {
+
+    for(j=1;j<=2;j++){
+         for(i=4;i>=1;i--){
+            if(myarr[i][posi+j-1]==1) {
                     b[j] = i;
                     break;//find last bottom 1
             }
@@ -74,11 +78,11 @@ void drop(bool**myarr,int posi,string a,int m)
 
     } //if for 2
 
-    else if(a=="I1"){
+    else if(shapeindex==17){
     int b[2] = {-1,-1};//record last block
-    for(j=posi;j<=posi;j++){
-         for(i=4;i>=1;i++){
-            if(myarr[i][posi]==1) {
+    for(j=1;j<=1;j++){
+         for(i=4;i>=1;i--){
+            if(myarr[i][posi+j-1]==1) {
                     b[j] = i;
                     break;//find last bottom 1
             }
@@ -101,11 +105,11 @@ void drop(bool**myarr,int posi,string a,int m)
     }
 
     }//for I1
-    else if(a=="I2"){
+    else if(shapeindex==18){
         int b[5] = {-1,-1,-1,-1,-1};//record last block
-    for(j=posi;j<=posi+3;j++){
-         for(i=4;i>=1;i++){
-            if(myarr[i][posi]==1) {
+    for(j=1;j<=4;j++){
+         for(i=4;i>=1;i--){
+            if(myarr[i][posi+j-1]==1) {
                     b[j] = i;
                     break;//find last bottom 1
             }
@@ -130,11 +134,7 @@ void drop(bool**myarr,int posi,string a,int m)
             }
         }
     }
-
     }
-
-
-
 }
 
 //delete
@@ -161,8 +161,10 @@ void Delete (bool**myarr,int m,int n)
     }
 }
 
+//OK
 int main()
 {
+    int shapeindex;
     int m,n,i,j;
     string obj;
     int posi;
@@ -186,6 +188,7 @@ int main()
 
     while (!test.eof())
     {//test star
+
         test>>obj>>posi;
         if(obj=="End") break;
 
@@ -195,6 +198,7 @@ int main()
             myarr[3][posi+1] = 1;
             myarr[3][posi+2] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 1;
         }
 
         else if(obj=="T2")
@@ -203,6 +207,7 @@ int main()
             myarr[2][posi+1] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 2;
         }
 
 
@@ -212,6 +217,7 @@ int main()
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
             myarr[4][posi+2] = 1;
+            shapeindex = 3;
         }
 
         else if(obj=="T4")
@@ -220,6 +226,7 @@ int main()
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
             myarr[3][posi+1] = 1;
+            shapeindex = 4;
         }
 
         else if(obj=="L1")
@@ -228,6 +235,7 @@ int main()
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 5;
         }
 
         else if(obj=="L2")
@@ -236,6 +244,7 @@ int main()
             myarr[4][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[3][posi+2] = 1;
+            shapeindex = 6;
         }
 
         else if(obj=="L3"){
@@ -243,54 +252,63 @@ int main()
             myarr[2][posi+1] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 7;
         }
         else if(obj=="L4"){
             myarr[4][posi] = 1;
             myarr[4][posi+1] = 1;
             myarr[4][posi+2] = 1;
             myarr[3][posi+2] = 1;
+            shapeindex = 8;
         }
         else if(obj=="J1"){
             myarr[4][posi] = 1;
             myarr[2][posi+1] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 9;
         }
         else if(obj=="J2"){
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
             myarr[4][posi+1] = 1;
             myarr[4][posi+2] = 1;
+            shapeindex = 10;
         }
         else if(obj=="J3"){
             myarr[2][posi] = 1;
             myarr[2][posi+1] = 1;
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
+            shapeindex = 11;
         }
         else if(obj=="J4"){
             myarr[3][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+2] = 1;
             myarr[3][posi+2] = 1;
+            shapeindex = 12;
         }
         else if(obj=="S1"){
             myarr[4][posi] = 1;
             myarr[4][posi+1] = 1;
             myarr[3][posi+1] = 1;
             myarr[3][posi+2] = 1;
+            shapeindex = 13;
         }
         else if(obj=="S2"){
             myarr[2][posi] = 1;
             myarr[3][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex = 14;
         }
         else if(obj=="Z1"){
             myarr[3][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
             myarr[4][posi+2] = 1;
+            shapeindex = 15;
 
         }
         else if(obj=="Z2"){
@@ -298,39 +316,42 @@ int main()
             myarr[4][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[2][posi+1] = 1;
+            shapeindex = 16;
         }
         else if(obj=="I1"){
             myarr[1][posi] = 1;
             myarr[2][posi] = 1;
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
+            shapeindex = 17;
         }
         else if(obj=="I2"){
             myarr[4][posi] = 1;
             myarr[4][posi+1] = 1;
             myarr[4][posi+2] = 1;
             myarr[4][posi+3] = 1;
+            shapeindex = 18;
         }
         else if(obj=="O"){
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
+            shapeindex  = 19;
         }
 
-        drop(myarr,posi,obj,m);
+        drop(myarr,posi,shapeindex,m);//to be write
         Delete (myarr,m,n);
+    }
 
-
-        //remember use file
-        for(i=5;i<=m+4;i++){
+    //remember use file
+    for(i=5;i<=m+4;i++){
             for(j=1;j<=n;j++){
                 cout<<myarr[i][j];
             }
             cout<<endl;
         }
 
-    }//end while
+    //end while
     return 0;
 }
-
