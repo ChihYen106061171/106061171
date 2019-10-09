@@ -29,7 +29,7 @@ void drop(bool**myarr,int posi,string a,int m)
         b[3]++;
     }
 
-    for(i=0;i<4;i++){//bring all to dest
+    for(i=1;i<5;i++){//bring all to dest
         for(j=0;j<3;j++){
             if(myarr[i][posi+j]==1){
                 myarr[i+step][posi+j] = 1;
@@ -63,7 +63,7 @@ void drop(bool**myarr,int posi,string a,int m)
         b[2]++;
     }
 
-    for(i=0;i<4;i++){//bring all to dest
+    for(i=1;i<5;i++){//bring all to dest
         for(j=0;j<2;j++){
             if(myarr[i][posi+j]==1){
                 myarr[i+step][posi+j] = 1;
@@ -91,7 +91,7 @@ void drop(bool**myarr,int posi,string a,int m)
         b[1]++;
     }
 
-    for(i=0;i<4;i++){//bring all to dest
+    for(i=1;i<5;i++){//bring all to dest
         for(j=0;j<1;j++){
             if(myarr[i][posi+j]==1){
                 myarr[i+step][posi+j] = 1;
@@ -122,7 +122,7 @@ void drop(bool**myarr,int posi,string a,int m)
         b[4]++;
     }
 
-    for(i=0;i<4;i++){//bring all to dest
+    for(i=1;i<5;i++){//bring all to dest
         for(j=0;j<4;j++){
             if(myarr[i][posi+j]==1){
                 myarr[i+step][posi+j] = 1;
@@ -137,11 +137,28 @@ void drop(bool**myarr,int posi,string a,int m)
 
 }
 
-
 //delete
-void Delete (bool**myarr)
+void Delete (bool**myarr,int m,int n)
 {
+    int i,j,k,a,b;
+    i = m+4;
 
+    while(i>=5){//from last row delete and drop
+        for(j=1;j<=n;j++){
+            if(myarr[i][j]!=1)
+              { i--;
+                break;}
+        }
+        //a row to be delete
+        if(j==(n+1)){//from "that  row!!"
+            for(k=1;k<=n;k++) myarr[i][k] = 0; //delete
+            for(a=i;a>0;a--){//no need for zero
+                for(b=1;b<=n;b++){
+                    myarr[a][b] = myarr[a-1][b];
+                }
+            }
+        }
+    }
 }
 
 int main()
@@ -164,12 +181,13 @@ int main()
             myarr[i][j] = 0;
         }
     }
-    //to be restore
+
 
     while (!test.eof())
     {//test star
         test>>obj>>posi;
         if(obj=="End") break;
+
         if(obj=="T1")
         {
             myarr[3][posi] = 1;
