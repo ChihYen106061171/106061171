@@ -14,20 +14,20 @@ void drop(bool**myarr,int posi,string a,int m)
     for(j=posi;j<=posi+2;j++){
          for(i=4;i>=1;i++){
             if(myarr[i][posi]==1) {
-                    b[posi] = i;
+                    b[j] = i; // rewrite
                     break;//find last bottom 1
             }
        }
     }
 
-    while((b[1]<=m+4)&&(b[2]<=m+4)&&(b[3]<=m+4)&&(myarr[(b[1]+1)][posi]==0)
+    while((b[1]<m+4)&&(b[2]<m+4)&&(b[3]<m+4)&&(myarr[(b[1]+1)][posi]==0)
           &&(myarr[(b[2]+1)][posi+1]==0)&&(myarr[(b[3]+1)][posi+2]==0))
     {
         step++;
         b[1]++;
         b[2]++;
         b[3]++;
-    }
+    } //<=?
 
     for(i=1;i<5;i++){//bring all to dest
         for(j=0;j<3;j++){
@@ -49,13 +49,13 @@ void drop(bool**myarr,int posi,string a,int m)
     for(j=posi;j<=posi+1;j++){
          for(i=4;i>=1;i++){
             if(myarr[i][posi]==1) {
-                    b[posi] = i;
+                    b[j] = i;
                     break;//find last bottom 1
             }
        }
     }
 
-    while((b[1]<=m+4)&&(b[2]<=m+4)&&(myarr[(b[1]+1)][posi]==0)
+    while((b[1]<m+4)&&(b[2]<m+4)&&(myarr[(b[1]+1)][posi]==0)
           &&(myarr[(b[2]+1)][posi+1]==0))
     {
         step++;
@@ -79,13 +79,13 @@ void drop(bool**myarr,int posi,string a,int m)
     for(j=posi;j<=posi;j++){
          for(i=4;i>=1;i++){
             if(myarr[i][posi]==1) {
-                    b[posi] = i;
+                    b[j] = i;
                     break;//find last bottom 1
             }
        }
     }
 
-    while((b[1]<=m+4)&&(myarr[(b[1]+1)][posi]==0))
+    while((b[1]<m+4)&&(myarr[(b[1]+1)][posi]==0))
     {
         step++;
         b[1]++;
@@ -106,13 +106,13 @@ void drop(bool**myarr,int posi,string a,int m)
     for(j=posi;j<=posi+3;j++){
          for(i=4;i>=1;i++){
             if(myarr[i][posi]==1) {
-                    b[posi] = i;
+                    b[j] = i;
                     break;//find last bottom 1
             }
        }
     }
 
-    while((b[1]<=m+4)&&(b[2]<=m+4)&&(b[3]<=m+4)&&(b[4]<=m+4)&&(myarr[(b[1]+1)][posi]==0)
+    while((b[1]<m+4)&&(b[2]<m+4)&&(b[3]<m+4)&&(b[4]<m+4)&&(myarr[(b[1]+1)][posi]==0)
           &&(myarr[(b[2]+1)][posi+1]==0)&&(myarr[(b[3]+1)][posi+2]==0)&&(myarr[(b[4]+1)][posi+3]==0))
     {
         step++;
@@ -146,7 +146,7 @@ void Delete (bool**myarr,int m,int n)
     while(i>=5){//from last row delete and drop
         for(j=1;j<=n;j++){
             if(myarr[i][j]!=1)
-              { i--;
+              { i--;//look up
                 break;}
         }
         //a row to be delete
@@ -310,13 +310,24 @@ int main()
             myarr[4][posi+2] = 1;
             myarr[4][posi+3] = 1;
         }
-        else {//O
+        else if(obj=="O"){
             myarr[3][posi] = 1;
             myarr[4][posi] = 1;
             myarr[3][posi+1] = 1;
             myarr[4][posi+1] = 1;
         }
 
+        drop(myarr,posi,obj,m);
+        Delete (myarr,m,n);
+
+
+        //use file
+        for(i=5;i<=m+4;i++){
+            for(j=1;j<=n;j++){
+                cout<<myarr[i][j];
+            }
+            cout<<endl;
+        }
 
     }//end while
     return 0;
