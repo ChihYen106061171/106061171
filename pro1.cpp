@@ -176,6 +176,7 @@ int main()
     for(i=0;i<m+5;i++){
           myarr[i] = new bool[n+1];
     }
+
     for(i=0;i<m+5;i++){
         for(j=0;j<n+1;j++){
             myarr[i][j] = 0;
@@ -321,7 +322,7 @@ int main()
         Delete (myarr,m,n);
 
 
-        //use file
+        //remember use file
         for(i=5;i<=m+4;i++){
             for(j=1;j<=n;j++){
                 cout<<myarr[i][j];
@@ -332,3 +333,4 @@ int main()
     }//end while
     return 0;
 }
+
