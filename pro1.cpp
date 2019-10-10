@@ -33,12 +33,15 @@ void drop(bool**myarr,int posi,int shapeindex,int m)
         b[3]++;
     } //<=?
 
+    //DOWN ASSIGN
 
-    for(i=1;i<5;i++){    //bring all to dest
+    for(i=4;i>=1;i--){    //bring all to dest
         for(j=0;j<3;j++){
-            if(myarr[i][posi+j]==1){//move
-                myarr[i+step][posi+j] = 1;
+            if(myarr[i][posi+j]==1){// find 1 move
+                //下平移
+            //PROBLEM "ASSIGN 0"????? BUG IS HERE!!在這邊被清掉
                 myarr[i][posi+j]=0;
+                myarr[i+step][posi+j] = 1;
             }
         }
     }
@@ -69,11 +72,11 @@ void drop(bool**myarr,int posi,int shapeindex,int m)
         b[2]++;
     }
 
-    for(i=1;i<5;i++){//bring all to dest
+    for(i=4;i>=1;i--){//bring all to dest
         for(j=0;j<2;j++){
             if(myarr[i][posi+j]==1){
-                myarr[i+step][posi+j] = 1;
                 myarr[i][posi+j]=0;
+                myarr[i+step][posi+j] = 1;
             }
         }
     }
@@ -97,11 +100,12 @@ void drop(bool**myarr,int posi,int shapeindex,int m)
         b[1]++;
     }
 
-    for(i=1;i<5;i++){//bring all to dest
+    for(i=4;i>=1;i--){//bring all to dest
         for(j=0;j<1;j++){
             if(myarr[i][posi+j]==1){
-                myarr[i+step][posi+j] = 1;
+
                 myarr[i][posi+j]=0;
+                 myarr[i+step][posi+j] = 1;
             }
         }
     }
@@ -128,11 +132,12 @@ void drop(bool**myarr,int posi,int shapeindex,int m)
         b[4]++;
     }
 
-    for(i=1;i<5;i++){//bring all to dest
+    for(i=4;i>=1;i--){//bring all to dest
         for(j=0;j<4;j++){
             if(myarr[i][posi+j]==1){
-                myarr[i+step][posi+j] = 1;
+
                 myarr[i][posi+j]=0;
+                myarr[i+step][posi+j] = 1;
             }
         }
     }
@@ -150,10 +155,12 @@ void Delete (bool**myarr,int m,int n)
             if(myarr[i][j]!=1)
               { i--;//look up
                 break;}
+
         }
         //a row to be delete
         if(j==(n+1)){//from "that  row!!"
             for(k=1;k<=n;k++) myarr[i][k] = 0; //delete
+
             for(a=i;a>0;a--){//no need for zero
                 for(b=1;b<=n;b++){
                     myarr[a][b] = myarr[a-1][b];
@@ -163,7 +170,7 @@ void Delete (bool**myarr,int m,int n)
     }
 }
 
-//OK
+
 int main()
 {
     int shapeindex;
