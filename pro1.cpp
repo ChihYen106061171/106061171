@@ -2,6 +2,8 @@
 #include<fstream>
 using namespace std;
 
+
+
 //drop
 void drop(bool**myarr,int posi,int shapeindex,int m)
 {
@@ -169,8 +171,12 @@ int main()
     string obj;
     int posi;
 
+    //fstream file; file.open()
     ifstream test;
-    test.open("C:\\Users\\user\\Desktop\\project\\tetris.data.txt",ios::in);
+    ofstream fin;
+
+    fin.open("tetris.final",ios::out);
+    test.open("tetris.data.txt",ios::in);
     test>>m>>n; //data in for m n
 
     //bool myarr[m+1+4][n+1] = {0};//size notify
@@ -345,12 +351,20 @@ int main()
     }
 
     //remember use file
+
     for(i=5;i<=m+4;i++){
             for(j=1;j<=n;j++){
-                cout<<myarr[i][j];
+                fin<<myarr[i][j];
             }
-            cout<<endl;
+            fin<<endl;
         }
+
+
+    test.close();
+    fin.close();
+    for(i = 0; i < m+5; i++)
+       delete [] myarr[i];
+         delete [] myarr;
 
     //end while
     return 0;
