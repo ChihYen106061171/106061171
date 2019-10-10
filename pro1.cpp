@@ -175,7 +175,7 @@ int main()
     ifstream test;
     ofstream fin;
 
-    fin.open("tetris.final",ios::out);
+    fin.open("tetris.output.txt",ios::out);
     test.open("tetris.data.txt",ios::in);
     test>>m>>n; //data in for m n
 
